@@ -17,7 +17,7 @@ class Configuration:
         # random: a random training area is selected and a patch in extracted from a random location inside that training area. Uses a lazy stratergy i.e. batch of patches are extracted on demand.
         # sequential: training areas are selected in the given order and patches extracted from these areas sequential with a given step size. All the possible patches are returned in one call.
         self.patch_generation_stratergy = 'random' # 'random' or 'sequential'
-        self.patch_size = (512,512,5) # Height * Width * (Input + Output) channels # (256,256,4)
+        self.patch_size = (256,256,4) # Height * Width * (Input + Output) channels # (256,256,4)
         self.overlap = 32
         # # When stratergy == sequential, then you need the step_size as well
         # step_size = (128,128)
@@ -36,7 +36,7 @@ class Configuration:
 
 
         # Shape of the input data, height*width*channel; Here channels are NVDI and Pan
-        self.input_shape = (512,512,4) # TODO: Num of Channels - colors/grayscale => 1 # (256,256,2)
+        self.input_shape = (256,256,3) # TODO: Num of Channels - colors/grayscale => 1 # (256,256,2)
         self.input_image_channel = [0,1]
         self.input_label_channel = [2]
         self.input_weight_channel = [3]
