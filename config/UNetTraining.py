@@ -37,9 +37,9 @@ class Configuration:
 
         # Shape of the input data, height*width*channel; Here channels are NVDI and Pan
         self.input_shape = (256,256,3) # TODO: Num of Channels - colors/grayscale => 1 # (256,256,2)
-        self.input_image_channel = [0,1]
-        self.input_label_channel = [2]
-        self.input_weight_channel = [3]
+        self.input_image_channel = [0,1,2]
+        self.input_label_channel = [3]
+        self.input_weight_channel = [4]
 
         # CNN model related variables used in the notebook
         self.BATCH_SIZE = 8
