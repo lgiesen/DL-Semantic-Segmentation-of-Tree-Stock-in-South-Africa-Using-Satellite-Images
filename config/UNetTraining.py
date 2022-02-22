@@ -16,7 +16,7 @@ class Configuration:
         # Patch generation; from the training areas (extracted in the last notebook), we generate fixed size patches.
         # random: a random training area is selected and a patch in extracted from a random location inside that training area. Uses a lazy stratergy i.e. batch of patches are extracted on demand.
         # sequential: training areas are selected in the given order and patches extracted from these areas sequential with a given step size. All the possible patches are returned in one call.
-        self.patch_generation_stratergy = 'random' # 'random' or 'sequential'
+        self.patch_generation_strategy = 'random' # 'random' or 'sequential'
         self.patch_size = (256,256,4) # Height * Width * (Input + Output) channels # (256,256,4)
         self.overlap = 32
         # # When stratergy == sequential, then you need the step_size as well
