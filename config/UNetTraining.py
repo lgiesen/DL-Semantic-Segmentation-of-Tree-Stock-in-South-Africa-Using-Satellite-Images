@@ -3,7 +3,7 @@ import os
 class Configuration:
     def __init__(self):
         self.filepath_label = '/Users/leori/Desktop/BA/1_Data/1_labeled_data/tif/labels-22-02-23.tif'# works.tif'
-        self.filepath_satellite = '/Users/leori/Desktop/BA/1_Data/2_satellite/2629BD_2018.tif'
+        self.filepath_satellite = '/Users/leori/Desktop/BA/1_Data/2_satellite/2629BD_2018_exported.tif'
 
         # Initialize the data related variables used in the notebook
         # For reading the ndvi, pan and annotated images generated in the Preprocessing step.
