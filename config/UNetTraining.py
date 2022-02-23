@@ -1,8 +1,10 @@
 import os
-
 # Configuration of the parameters for the 2-UNetTraining.ipynb notebook
 class Configuration:
     def __init__(self):
+        self.filepath_label = '/Users/leori/Desktop/BA/1_Data/1_labeled_data/tif/works.tif'
+        self.filepath_satellite = '/Users/leori/Desktop/BA/1_Data/2_satellite/2629BD_2018.tif'
+
         # Initialize the data related variables used in the notebook
         # For reading the ndvi, pan and annotated images generated in the Preprocessing step.
         # In most cases, they will take the same value as in the config/Preprocessing.py
