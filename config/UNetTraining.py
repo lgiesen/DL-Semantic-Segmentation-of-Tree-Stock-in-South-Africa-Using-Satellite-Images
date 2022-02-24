@@ -2,13 +2,14 @@ import os
 # Configuration of the parameters for the 2-UNetTraining.ipynb notebook
 class Configuration:
     def __init__(self):
-        self.filepath_label = '/Users/leori/Desktop/BA/1_Data/1_labeled_data/tif/labels-22-02-23.tif'# works.tif'
-        self.filepath_satellite = '/Users/leori/Desktop/BA/1_Data/2_satellite/2629BD_2018_exported.tif'
+        self.base_dir = '/Users/leori/Desktop/BA/1_Data'
+        self.filepath_label = self.base_dir+'/1_labeled_data/tif/labels-22-02-23.tif'
+        self.filepath_satellite = self.base_dir + '/2_satellite/2629BD_2018_exported.tif'
+        self.filepath_labels_bounding_boxes = self.base_dir + '/1_labeled_data/label_fields/labels_bounding_box.shp'
 
         # Initialize the data related variables used in the notebook
         # For reading the ndvi, pan and annotated images generated in the Preprocessing step.
         # In most cases, they will take the same value as in the config/Preprocessing.py
-        self.base_dir = ''
         self.image_type = '.png'
         self.ndvi_fn = 'ndvi' # TODO
         self.pan_fn = 'pan' # TODO
@@ -19,7 +20,7 @@ class Configuration:
         # random: a random training area is selected and a patch in extracted from a random location inside that training area. Uses a lazy stratergy i.e. batch of patches are extracted on demand.
         # sequential: training areas are selected in the given order and patches extracted from these areas sequential with a given step size. All the possible patches are returned in one call.
         self.patch_generation_strategy = 'random' # 'random' or 'sequential'
-        self.patch_size = (256,256,4) # Height * Width * (Input + Output) channels # (256,256,4)
+        self.patch_size = (512,512,4) # Height * Width * (Input + Output) channels # (256,256,4)
         self.overlap = 32
         # # When stratergy == sequential, then you need the step_size as well
         # step_size = (128,128)
@@ -38,7 +39,7 @@ class Configuration:
 
 
         # Shape of the input data, height*width*channel; Here channels are NVDI and Pan
-        self.input_shape = (256,256,3) # TODO: Num of Channels - colors/grayscale => 1 # (256,256,2)
+        self.input_shape = (512,512,3) # TODO: Num of Channels - colors/grayscale => 1 # (256,256,2)
         self.input_image_channel = [0,1,2]
         self.input_label_channel = [3]
         self.input_weight_channel = [4]
