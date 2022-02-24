@@ -2,10 +2,13 @@ import os
 # Configuration of the parameters for the 2-UNetTraining.ipynb notebook
 class Configuration:
     def __init__(self):
-        self.base_dir = '/Users/leori/Desktop/BA/1_Data'
-        self.filepath_label = self.base_dir+'/1_labeled_data/tif/labels-22-02-23.tif'
-        self.filepath_satellite = self.base_dir + '/2_satellite/2629BD_2018_exported.tif'
-        self.filepath_labels_bounding_boxes = self.base_dir + '/1_labeled_data/label_fields/labels_bounding_box.shp'
+        self.base_dir = '/Users/leori/Desktop/BA/1_Data/'
+        self.path_labeled_data = self.base_dir + '1_labeled_data/tif/'
+        self.path_labeled_data_areas = self.path_labeled_data + 'labeled_areas/'
+
+        self.filepath_label = self.path_labeled_data + 'labels-22-02-23.tif'
+        self.filepath_satellite = self.base_dir + '2_satellite/2629BD_2018_exported.tif'
+        self.filepath_labels_bounding_boxes = self.path_labeled_data + 'label_polygons/labels_bounding_box.shp'
 
         # Initialize the data related variables used in the notebook
         # For reading the ndvi, pan and annotated images generated in the Preprocessing step.
