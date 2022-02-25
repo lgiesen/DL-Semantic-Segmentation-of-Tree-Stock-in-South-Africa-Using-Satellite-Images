@@ -32,7 +32,7 @@ class Configuration:
         # step_size = (128,128)
         
         # The training areas are divided into training, validation and testing set. Note that training area can have different sizes, so it doesn't guarantee that the final generated patches (when using sequential stratergy) will be in the same ratio. 
-        self.test_ratio = 0.2
+        self.test_ratio = 0.2 
         self.val_ratio = 0.2
         
         # Probability with which the generated patches should be normalized 0 -> don't normalize, 1 -> normalize all
