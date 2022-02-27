@@ -25,6 +25,8 @@ class Configuration:
         self.path_patches_satellite = self.path_patches + 'satellite/'
 
         self.filepath_label = self.path_labeled_data + 'labels-22-02-23.tif'
+        self.filepath_label_nw = self.path_labeled_data + 'labels-22-02-23-nw.tif'
+        self.filepath_label_se = self.path_labeled_data + 'labels-22-02-23-se.tif'
         self.filepath_satellite = self.path_data + '2_satellite/2629BD_2018_exported.tif'
         self.filepath_labels_bounding_boxes = self.path_labeled_data + 'label_polygons/labels_bounding_box.shp'
 
