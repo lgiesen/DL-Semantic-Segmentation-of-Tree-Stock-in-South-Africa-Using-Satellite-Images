@@ -2,30 +2,45 @@ import os
 # Configuration of the parameters for the 2-UNetTraining.ipynb notebook
 class Configuration:
     def __init__(self):
-        self.base_dir = '/Users/leori/Desktop/BA/1_Data/'
-        self.path_labeled_data = self.base_dir + '1_labeled_data/tif/'
+        from sys import platform
+
+        if platform == 'linux' or platform == 'linux2':
+            self.path_data = '/home/jovyan/work/saved_data/south_africa_tree_stock/' # os.getcwd()
+            # Due to the export from QGIS, the satellite data is stored in "2_satellite/"
+            # self.path_satellite = '/home/jovyan/work/satellite_data/'
+            # self.cutouts_path = self.path_data + '/2_cutouts/'
+        elif platform == 'darwin':
+            self.path_data = '/Users/leori/Desktop/BA/1_Data/'
+            # self.cutouts_path = None
+        elif platform == 'win32':
+            print('Something went wrong')
+
+        self.path_labels = self.path_data + '1_labeled_data/tif/'
+        self.path_satellite = self.path_data + '2_satellite/'
+
+        self.path_labeled_data = self.path_data + '1_labeled_data/tif/'
         self.path_labeled_data_areas = self.path_labeled_data + 'labeled_areas/'
-        self.path_patches = self.base_dir + '3_patches/'
+        self.path_patches = self.path_data + '3_patches/'
         self.path_patches_masks = self.path_patches + 'masks/'
         self.path_patches_satellite = self.path_patches + 'satellite/'
 
         self.filepath_label = self.path_labeled_data + 'labels-22-02-23.tif'
-        self.filepath_satellite = self.base_dir + '2_satellite/2629BD_2018_exported.tif'
+        self.filepath_satellite = self.path_data + '2_satellite/2629BD_2018_exported.tif'
         self.filepath_labels_bounding_boxes = self.path_labeled_data + 'label_polygons/labels_bounding_box.shp'
 
         # Initialize the data related variables used in the notebook
         # For reading the ndvi, pan and annotated images generated in the Preprocessing step.
         # In most cases, they will take the same value as in the config/Preprocessing.py
-        self.image_type = '.png'
-        self.ndvi_fn = 'ndvi' # TODO
-        self.pan_fn = 'pan' # TODO
-        self.annotation_fn = 'annotation'
-        self.weight_fn = 'boundary'
+        # self.image_type = '.png'
+        # self.ndvi_fn = 'ndvi' # TODO
+        # self.pan_fn = 'pan' # TODO
+        # self.annotation_fn = 'annotation'
+        # self.weight_fn = 'boundary'
         
         # Patch generation; from the training areas (extracted in the last notebook), we generate fixed size patches.
         # random: a random training area is selected and a patch in extracted from a random location inside that training area. Uses a lazy stratergy i.e. batch of patches are extracted on demand.
         # sequential: training areas are selected in the given order and patches extracted from these areas sequential with a given step size. All the possible patches are returned in one call.
-        self.patch_generation_strategy = 'random' # 'random' or 'sequential'
+        # self.patch_generation_strategy = 'random' # 'random' or 'sequential'
         self.patch_size = (256,256,4) # Height * Width * (Input + Output) channels # (256,256,4)
         self.overlap = 32
         # # When stratergy == sequential, then you need the step_size as well
@@ -40,8 +55,8 @@ class Configuration:
 
         
         # The split of training areas into training, validation and testing set, is cached in patch_dir.
-        self.patch_dir = './patches{}'.format(self.patch_size[0])
-        self.frames_json = os.path.join(self.patch_dir,'frames_list.json')
+        # self.patch_dir = './patches{}'.format(self.patch_size[0])
+        # self.frames_json = os.path.join(self.patch_dir,'frames_list.json')
 
 
         # Shape of the input data, height*width*channel; Here channels are NVDI and Pan
