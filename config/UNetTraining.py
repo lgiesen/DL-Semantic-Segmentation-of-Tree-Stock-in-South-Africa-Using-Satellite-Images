@@ -4,14 +4,16 @@ class Configuration:
     def __init__(self):
         from sys import platform
 
-        if platform == 'linux' or platform == 'linux2':
+        if platform in ['linux', 'linux2']:
             self.path_data = '/home/jovyan/work/saved_data/south_africa_tree_stock/' # os.getcwd()
+            self.model_path = self.path_data + 'saved_models/'
             # Due to the export from QGIS, the satellite data is stored in "2_satellite/"
-            # self.path_satellite = '/home/jovyan/work/satellite_data/'
-            # self.cutouts_path = self.path_data + '/2_cutouts/'
+            self.filepath_satellite = '/home/jovyan/work/satellite_data/2629BD_2018.tif'
+            # self.filepath_satellite = self.path_data + '2_satellite/2629BD_2018_exported.tif'
         elif platform == 'darwin':
             self.path_data = '/Users/leori/Desktop/BA/1_Data/'
-            # self.cutouts_path = None
+            self.model_path = '/Users/leori/Desktop/BA/4_Project/saved_models/'
+            self.filepath_satellite = self.path_data + '2_satellite/2629BD_2018_exported.tif'
         elif platform == 'win32':
             print('Something went wrong')
 
@@ -27,17 +29,7 @@ class Configuration:
         self.filepath_label = self.path_labeled_data + 'labels-22-02-23.tif'
         self.filepath_label_nw = self.path_labeled_data + 'labels-22-02-23-nw.tif'
         self.filepath_label_se = self.path_labeled_data + 'labels-22-02-23-se.tif'
-        self.filepath_satellite = self.path_data + '2_satellite/2629BD_2018_exported.tif'
         self.filepath_labels_bounding_boxes = self.path_labeled_data + 'label_polygons/labels_bounding_box.shp'
-
-        # Initialize the data related variables used in the notebook
-        # For reading the ndvi, pan and annotated images generated in the Preprocessing step.
-        # In most cases, they will take the same value as in the config/Preprocessing.py
-        # self.image_type = '.png'
-        # self.ndvi_fn = 'ndvi' # TODO
-        # self.pan_fn = 'pan' # TODO
-        # self.annotation_fn = 'annotation'
-        # self.weight_fn = 'boundary'
         
         # Patch generation; from the training areas (extracted in the last notebook), we generate fixed size patches.
         # random: a random training area is selected and a patch in extracted from a random location inside that training area. Uses a lazy stratergy i.e. batch of patches are extracted on demand.
@@ -75,5 +67,4 @@ class Configuration:
         self.VALID_IMG_COUNT = 200
         # maximum number of steps_per_epoch in training
         self.MAX_TRAIN_STEPS = 1000
-        self.model_path = '../saved_models/'
 
