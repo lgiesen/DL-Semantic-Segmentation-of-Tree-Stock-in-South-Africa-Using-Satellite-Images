@@ -60,8 +60,8 @@ class Configuration:
         self.input_weight_channel = [4]
 
         # CNN model related variables used in the notebook
-        self.BATCH_SIZE = 8
-        self.NB_EPOCHS = 200
+        self.BATCH_SIZE = 16
+        self.NB_EPOCHS = 100
 
         # number of validation images to use
         self.VALID_IMG_COUNT = 200
