@@ -17,6 +17,9 @@ class Configuration:
         elif platform == 'win32':
             print('Something went wrong')
 
+        self.filepath_satellite_server = self.path_data + '2_satellite/2629BD_2018.tif'
+
+        
         self.path_labels = self.path_data + '1_labeled_data/tif/'
         self.path_satellite = self.path_data + '2_satellite/'
 

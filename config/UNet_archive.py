@@ -1,12 +1,7 @@
 from tensorflow.keras import models, layers
 from tensorflow.keras import regularizers
-import torch.nn as nn
-import torch.nn.functional as F
 
-class UNetModel(nn.Module):
-
-    def __init__(self, input_shape, input_label_channel, layer_count=64, regularizers = regularizers.l2(0.0001), gaussian_noise=0.1, weight_file = None):
-        #, num_inputs, num_hidden, num_outputs):
+def UNet(input_shape, input_label_channel, layer_count=64, regularizers = regularizers.l2(0.0001), gaussian_noise=0.1, weight_file = None):
         """ Method to declare the UNet model.
 
         Args:
@@ -21,7 +16,7 @@ class UNetModel(nn.Module):
             weight_file: str
                 path to the weight file.
         """
-        super().__init__()
+
         input_img = layers.Input(input_shape[1:], name='Input')
         pp_in_layer  = input_img
 #        pp_in_layer = layers.GaussianNoise(gaussian_noise)(input_img)
@@ -81,10 +76,4 @@ class UNetModel(nn.Module):
         if weight_file:
             seg_model.load_weights(weight_file)
         seg_model.summary()
-
-    def forward(self, x):
-        # Perform the calculation of the model to determine the prediction
-        x = self.linear1(x)
-        x = self.act_fn(x)
-        x = self.linear2(x)
-        return x
+        return seg_model
