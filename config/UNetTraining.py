@@ -13,17 +13,17 @@ class Configuration:
         elif platform == 'darwin':
             self.path_data = '/Users/leori/Desktop/BA/1_Data/'
             self.model_path = '/Users/leori/Desktop/BA/4_Project/saved_models/'
-            self.filepath_satellite = self.path_data + '2_satellite/2629BD_2018_exported.tif'
+            # self.filepath_satellite = self.path_data + '2_satellite/2629BD_2018_exported.tif'
+            self.filepath_satellite_server = self.path_data + '2_satellite/2629BD_2018.tif'
+            self.path_labeled_data = self.path_data + '1_labeled_data/tif/'
+            self.path_satellite = self.path_data + '2_satellite/'
         elif platform == 'win32':
             print('Something went wrong')
 
-        self.filepath_satellite_server = self.path_data + '2_satellite/2629BD_2018.tif'
+        self.filepath_label_compressed = self.path_labeled_data + 'labels-22-02-23-compressed.tif'
 
         
-        self.path_labels = self.path_data + '1_labeled_data/tif/'
-        self.path_satellite = self.path_data + '2_satellite/'
 
-        self.path_labeled_data = self.path_data + '1_labeled_data/tif/'
         self.path_labeled_data_areas = self.path_labeled_data + 'labeled_areas/'
         self.path_patches = self.path_data + '3_patches/'
         self.path_patches_masks = self.path_patches + 'masks/'
