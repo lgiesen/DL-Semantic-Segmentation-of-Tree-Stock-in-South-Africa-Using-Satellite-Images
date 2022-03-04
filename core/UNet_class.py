@@ -4,7 +4,9 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class UNetModel(nn.Module):
-    def UNet(input_shape, input_label_channel, layer_count=64, regularizers = regularizers.l2(0.0001), gaussian_noise=0.1, weight_file = None):
+
+    def __init__(self, input_shape, input_label_channel, layer_count=64, regularizers = regularizers.l2(0.0001), gaussian_noise=0.1, weight_file = None):
+        #, num_inputs, num_hidden, num_outputs):
         """ Method to declare the UNet model.
 
         Args:
@@ -19,7 +21,7 @@ class UNetModel(nn.Module):
             weight_file: str
                 path to the weight file.
         """
-
+        super().__init__()
         input_img = layers.Input(input_shape[1:], name='Input')
         pp_in_layer  = input_img
 #        pp_in_layer = layers.GaussianNoise(gaussian_noise)(input_img)
@@ -79,26 +81,6 @@ class UNetModel(nn.Module):
         if weight_file:
             seg_model.load_weights(weight_file)
         seg_model.summary()
-        return seg_model
-
-    def __init__(self, input_shape, input_label_channel):
-        #, num_inputs, num_hidden, num_outputs):
-        """ Method to declare the UNet model.
-
-        Args:
-            input_shape: tuple(int, int, int, int)
-                Shape of the input in the format (batch, height, width, channels).
-            input_label_channel: list([int])
-                list of index of label channels, used for calculating the number of channels in model output.
-            layer_count: (int, optional)
-                Count of kernels in first layer. Number of kernels in other layers grows with a fixed factor.
-            regularizers: keras.regularizers
-                regularizers to use in each layer.
-            weight_file: str
-                path to the weight file.
-        """
-        super().__init__()
-        self.UNet(input_shape, input_label_channel)
 
     def forward(self, x):
         # Perform the calculation of the model to determine the prediction
@@ -106,4 +88,3 @@ class UNetModel(nn.Module):
         x = self.act_fn(x)
         x = self.linear2(x)
         return x
-    
