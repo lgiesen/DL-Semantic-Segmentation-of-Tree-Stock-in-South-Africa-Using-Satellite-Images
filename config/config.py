@@ -39,13 +39,13 @@ class Configuration:
         elif platform == 'win32':
             print('Something went wrong')
 
-        self.filepath_model = f'{self.model_path}20220404_1826_AdaDelta_weightmap_tversky_256.h5'
         self.path_patches = f'{self.path_data}3_patches/'
         # self.path_labeled_data_areas = f'{self.path_labeled_data}labeled_areas/'
         self.path_patches_labels = f'{self.path_patches}satellite_patches.npy'
         self.path_patches_satellite = f'{self.path_patches}label_patches.npy'
 
-        self.pred_imgs = ["2621DB_2009.tif", "2621DB_2016.tif"]
+        self.filepath_model = f'{self.model_path}20220404_1826_AdaDelta_weightmap_tversky_256.h5'
+        self.pred_imgs = ["2629BD_2018.tif"]
 
         self.filepath_label = f'{self.path_labeled_data}labels-22-02-23-compressed.tif'
         self.filepath_labels_bounding_boxes = self.path_labeled_data + \

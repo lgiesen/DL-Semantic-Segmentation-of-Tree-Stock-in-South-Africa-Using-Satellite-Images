@@ -47,29 +47,37 @@ class TiffLoader:
         return self._bands[channel.value].ReadAsArray(x, y, win_xsize=xs, win_ysize=ys)
 
 
+def scale_data(data):
+    return [patch/255 for patch in data]
+
+
 def main():
-    for filename in config.pred_imgs:
-        data_loader = TiffLoader(config.path_satellite + filename)
-        step_size = config.size
+    # for filename in config.pred_imgs:
+    filename = config.pred_imgs[0]
+    data_loader = TiffLoader(config.path_satellite + filename)
+    step_size = config.size
 
-        x_size, y_size = data_loader.size
+    x_size, y_size = data_loader.size
 
+    x_offset = 0
+    y_offset = 0
+    satellite_patches = []
+    while y_offset + step_size < min(y_size, 7500):
+        while x_offset + step_size < min(x_size, 7500):
+            data = data_loader.load_rgb(
+                x_offset, y_offset, step_size, step_size)
+            # plt.imshow(data)
+            # plt.show()
+
+            satellite_patches.append(np.divide(data, 255))
+
+            x_offset += step_size - config.overlap
         x_offset = 0
-        y_offset = 0
-        satellite_patches, label_patches = [], []
-        while y_offset + step_size < y_size:
-            while x_offset + step_size < x_size:
-                data = data_loader.load_rgb(
-                    x_offset, y_offset, step_size, step_size)
-                #plt.imshow(data)
-                #plt.show()
-                satellite_patches.append(data)
+        y_offset += step_size - config.overlap
 
-                x_offset += step_size - config.overlap
-            x_offset = 0
-            y_offset += step_size - config.overlap
+    np.save(
+        f"{config.path_patches}pred_patches_{filename[:-4]}.npy", satellite_patches)
 
-        np.save(f"{config.path_patches}pred_patches_{filename[:-4]}.npy", satellite_patches)
 
 if __name__ == '__main__':
     main()
