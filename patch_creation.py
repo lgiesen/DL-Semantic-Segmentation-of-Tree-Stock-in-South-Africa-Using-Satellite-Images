@@ -3,6 +3,7 @@ from enum import Enum
 import numpy as np
 from matplotlib import pyplot as plt
 from osgeo import gdal
+
 from config import config
 
 config = config.Configuration()
@@ -18,17 +19,21 @@ class Channel(Enum):
 class TiffLoader:
     def __init__(self, path):
         self._dataset = gdal.Open(path, gdal.GA_ReadOnly)
-        self._bands = [self._dataset.GetRasterBand(x) for x in range(1, self._dataset.RasterCount + 1)]
+        self._bands = [self._dataset.GetRasterBand(
+            x) for x in range(1, self._dataset.RasterCount + 1)]
 
     @property
     def size(self) -> (int, int):
         return self._dataset.RasterXSize, self._dataset.RasterYSize
 
     def print_details(self):
-        print(f"Driver: {self._dataset.GetDriver().ShortName}/{self._dataset.GetDriver().LongName}")
-        print(f"Size is {self._dataset.RasterXSize} x {self._dataset.RasterYSize} x {self._dataset.RasterCount}")
+        print(
+            f"Driver: {self._dataset.GetDriver().ShortName}/{self._dataset.GetDriver().LongName}")
+        print(
+            f"Size is {self._dataset.RasterXSize} x {self._dataset.RasterYSize} x {self._dataset.RasterCount}")
         print(f"Projection is {self._dataset.GetProjection()}")
-        if geo_transform := self._dataset.GetGeoTransform():
+        geo_transform = self._dataset.GetGeoTransform()
+        if geo_transform:
             print(f"Origin = ({geo_transform[0]}, {geo_transform[3]})")
             print(f"Pixel Size = ({geo_transform[1]}, {geo_transform[5]})")
 
@@ -55,7 +60,8 @@ def corrected_labels(labels):
     Somehow, some color values have been above 255, which might have happened due to a faulty export from QGIS.
     patches_labels_training = [patch==1.0 if patch != 0.0 else 0.0 for patch in patches_labels]
     """
-    return np.where(labels != 0, 255, 0)
+    labels = np.where(labels != 0, 255, 0)
+    return labels
 
 
 def show(data, label):
@@ -75,8 +81,10 @@ def main():
     satellite_patches, label_patches = [], []
     while y_offset + step_size < y_size:
         while x_offset + step_size < x_size:
-            data = data_loader.load_rgb(x_offset, y_offset, step_size, step_size)
-            label = label_loader.load(Channel.GRAYSCALE, x_offset, y_offset, step_size, step_size)
+            data = data_loader.load_rgb(
+                x_offset, y_offset, step_size, step_size)
+            label = corrected_labels(label_loader.load(
+                Channel.GRAYSCALE, x_offset, y_offset, step_size, step_size))
 
             satellite_patches.append(data)
             label_patches.append(label)

@@ -1,29 +1,41 @@
+from enum import Enum
 import numpy as np
-import rasterio
-from rasterio.plot import show
-from rasterio.windows import from_bounds
-import patchify
-from config import UNetTraining
-config = UNetTraining.Configuration()
+from matplotlib import pyplot as plt
+from osgeo import gdal
+from config import config
+config = config.Configuration()
 
-# 1. patch creation
-opened_label_areas = [
-    rasterio.open(config.filepath_label_nw),
-    rasterio.open(config.filepath_label_se)]
-# 1.1 label patches
-patches_labels = []
-for label_area in opened_label_areas:
-    (w, s, e, n) = label_area.bounds
-    label_area = label_area.read(1, 
-        window = from_bounds(w, s, e, n, label_area.transform))
+class Channel(Enum):
+    GRAYSCALE = 0
+    RED = 0
+    GREEN = 1
+    BLUE = 2
 
-    cur_patches = patchify(label_area, 
-        (config.patch_size[0], config.patch_size[1]), 
-        step=config.patch_size[0]-config.overlap)
-    reshaped_patches = np.reshape(cur_patches, 
-        (cur_patches.shape[0]*cur_patches.shape[1], 
-        cur_patches.shape[2], cur_patches.shape[3])) 
-        # = (#patches, 256, 256)
-    patches_labels.extend(reshaped_patches)
-print("Mask/Label Patch Shape:", len(patches_labels))
+class TiffLoader:
+    def __init__(self, path):
+        self._dataset = gdal.Open(path, gdal.GA_ReadOnly)
+        self._bands = [self._dataset.GetRasterBand(
+            x) for x in range(1, self._dataset.RasterCount + 1)]
 
+    def load_rgb(self, x, y, xs, ys):
+        r = self.load(Channel.RED, x, y, xs, ys)
+        g = self.load(Channel.GREEN, x, y, xs, ys)
+        b = self.load(Channel.BLUE, x, y, xs, ys)
+        return np.dstack((r, g, b))
+
+    def load(self, channel: Channel, x, y, xs, ys):
+        return self._bands[channel.value].ReadAsArray(
+            x, y, win_xsize=xs, win_ysize=ys)
+
+def gray_to_rgb(grayscale_img):
+    assert len(grayscale_img.shape) == 2
+    return np.stack((corrected_labels(grayscale_img),) * 3,
+                    axis=-1).astype(np.uint8)
+
+def corrected_labels(labels):
+    labels = np.where(labels != 0, 255, 0)
+    return labels
+
+def show(data, label):
+    plt.imshow(np.hstack((data, gray_to_rgb(label))))
+    plt.show()

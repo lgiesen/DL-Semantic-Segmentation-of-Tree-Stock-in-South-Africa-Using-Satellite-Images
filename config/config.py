@@ -11,7 +11,6 @@ class Configuration:
             self.path_data = '/home/jovyan/work/saved_data/south_africa_tree_stock/'
 
             self.model_path = f'{self.path_data}saved_models/'
-            self.filepath_model = f'{self.model_path}UNet_20220307-0837_AdaDelta_weightmap_tversky_256-accuracy23745.h5'
 
             self.path_labeled_data = f'{self.path_data}1_labeled_data/tif/'
             self.path_satellite = '/home/jovyan/work/satellite_data/'
@@ -25,7 +24,6 @@ class Configuration:
             self.path_data = f'{self.base_dir}1_Data/'
 
             self.model_path = f'{self.base_dir}4_Project/saved_models/'
-            self.filepath_model = f'{self.model_path}UNet_20220307-0807_AdaDelta_weightmap_tversky_256.h5'
 
             self.filepath_satellite_exported = self.path_data + \
                 '2_satellite/2629BD_2018_exported.tif'
@@ -41,10 +39,13 @@ class Configuration:
         elif platform == 'win32':
             print('Something went wrong')
 
+        self.filepath_model = f'{self.model_path}20220404_1826_AdaDelta_weightmap_tversky_256.h5'
         self.path_patches = f'{self.path_data}3_patches/'
         # self.path_labeled_data_areas = f'{self.path_labeled_data}labeled_areas/'
         self.path_patches_labels = f'{self.path_patches}satellite_patches.npy'
         self.path_patches_satellite = f'{self.path_patches}label_patches.npy'
+
+        self.pred_imgs = ["2621DB_2009.tif", "2621DB_2016.tif"]
 
         self.filepath_label = f'{self.path_labeled_data}labels-22-02-23-compressed.tif'
         self.filepath_labels_bounding_boxes = self.path_labeled_data + \
