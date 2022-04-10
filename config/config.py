@@ -13,7 +13,7 @@ class Configuration:
             self.model_path = f'{self.path_data}saved_models/'
 
             self.path_labeled_data = f'{self.path_data}1_labeled_data/tif/'
-            self.path_satellite = '/home/jovyan/work/satellite_data/'
+            self.path_satellite = f'{path_data}satellite_data/'
             self.filepath_satellite = f'{self.path_satellite}2629BD_2018.tif'
             self.filepath_satellite_nw = self.path_data + '2_satellite/satellite-nw.tif'
 

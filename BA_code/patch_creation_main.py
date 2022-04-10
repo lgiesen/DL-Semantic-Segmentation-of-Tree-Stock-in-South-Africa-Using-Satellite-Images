@@ -6,8 +6,8 @@ def main():
     x_offset, y_offset = 0, 0
     satellite_patches, label_patches = [], []
 
-    while y_offset + size < y_size:
-        while x_offset + size < x_size:
+    while y_offset + size <= y_size:
+        while x_offset + size <= x_size:
             data = data_loader.load_rgb(
                 x_offset, y_offset, size, size)
             label = corrected_labels(label_loader.load(
