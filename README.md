@@ -38,6 +38,10 @@ The exposé may be inspected [here](https://github.com/lgiesen/DL-Semantic-Segme
 - **core/** has the loss, optimizer classes and the U-Net.
 - **config/config.py** stores central configuration settings, such as filepaths, training hyperparameters and shape of the patches.
 
+## Get Started
+
+Set the corresponding settings in the config/config.py, for instance define the name of a new to be predicted satellite image. Similarly adjust the settings in the case of new training data. Then run the pipeline notebook and specifying if you want to predict or train the model with the provided variables.
+
 ---
 
 ## Motivation

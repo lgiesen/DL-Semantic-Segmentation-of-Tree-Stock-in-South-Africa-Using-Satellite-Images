@@ -41,6 +41,7 @@ class Configuration:
             print("Something went wrong")
 
         self.path_patches = f"{self.path_data}3_patches/"
+        self.path_pred = f"{self.path_data}4_pred/"
         # self.path_labeled_data_areas = f"{self.path_labeled_data}labeled_areas/"
         self.path_patches_labels = f"{self.path_patches}satellite_patches.npy"
         self.path_patches_satellite = f"{self.path_patches}label_patches.npy"
