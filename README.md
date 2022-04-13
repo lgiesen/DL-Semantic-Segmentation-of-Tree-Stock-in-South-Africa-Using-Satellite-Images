@@ -1,11 +1,44 @@
 # Deep Learning Semantic Segmentation of Tree Stock in South Africa Using Satellite Images
 
 This is a bachelor thesis at the chair of Data Science: Machine Learning and Data Engineering
+It performs semantic segmentation on high resolution satellite images in South Africa using a U-Net.
+
+A significant proportion of Africa’s drylands trees and shrubs (subsequently collectively referred to as trees) grow in an isolated manner without canopy closure. Still,
+these non-forest trees crucially contribute to the biodiversity and ecosystem because
+they store carbon, offer food resources, and shelter to humans and animals [Bra+20;
+Str+12; Bay+14]. Therefore, single trees are detected by a deep learning approach
+utilizing the U-Net architecture, which enables an analysis of the tree stock development in South Africa.
+The number of trees also provides an estimate of the dryland’s biomass and carbon
+dioxide emissions. Thus, the idea is to visualize these results on a website devoted
+to sustainability. The sharing of the gained insights and lessons learned could create awareness for problems in a sustainability context, such as land degradation,
+desertification, de- or reforestation, which may be derived from the tree count
 
 - Principal Supervisor Supervisor: Prof. Dr. Fabian Gieseke
 - Supervisor: Subst.-Prof. Dr. Friedrich Chasin
 
-The exposé may be inspected [here](https://github.com/lgiesen/DL-Semantic-Segmentation-of-Tree-Stock-in-South-Africa-Using-Satellite-Images/blob/main/Expose_Deep_Learning_Semantic_Segmentation_of_Tree_Stock_in_South_Africa_Using_Satellite_Images.pdf).
+The exposé may be inspected [here](https://github.com/lgiesen/DL-Semantic-Segmentation-of-Tree-Stock-in-South-Africa-Using-Satellite-Images/blob/main/Expose_Deep_Learning_Semantic_Segmentation_of_Tree_Stock_in_South_Africa_Using_Satellite_Images.pdf) and the complete bachelors thesis can be viewed [here](https://github.com/lgiesen/DL-Semantic-Segmentation-of-Tree-Stock-in-South-Africa-Using-Satellite-Images/blob/main/Deep_Learning_Semantic_Segmentation_of_Tree_Stock_in_South_Africa_Using_Satellite_Images.pdf).
+
+---
+
+## Documentation
+
+- Pipeline:
+  - **0_pipeline.ipynb** is the central file, which executes all components of the pipeline.
+- Pipeline Components:
+
+  - **1_data_preparation.ipynb** prepares the data by creating patches with **patch_creation.py**, scaling the features and splitting the data into training, validation and test sets.
+  - **2\_ model.ipynb** defines the U-Net model with the help of **core/UNet_func**.
+  - **3\_ training.ipynb** trains the model on CPU.
+  - **4_evaluation.ipynb** evaluates the model.
+  - **5_prediction.ipynb** prepares the data by creating patches and performs feature scaling with **patch_creation_pred.py** and predicts the are.
+  - 9_gpu-training.ipynb is not part of the pipeline, because GPU training is not completely implemented at the moment.
+
+- **thesis_code/** comprises the code provided in the bachelors thesis
+- **saved_models/** stores the current model and is not uploaded in GitHub, but can be retrieved from the WWU university server.
+- **core/** has the loss, optimizer classes and the U-Net.
+- **config/config.py** stores central configuration settings, such as filepaths, training hyperparameters and shape of the patches.
+
+---
 
 ## Motivation
 
@@ -24,8 +57,6 @@ Furthermore, the second and central objective is the development of a Deep Learn
 ## Work Plan & Research Approach
 
 First, the data is accessed on the university server using the remote desktop gateway and is explored and labeled in QGIS. Second, data preparation and the Deep Learning implementation are performed in a Jupyter Notebook. Third, the U-Net model is chosen. Fourth, the model is trained and evaluated. Fifth, the application of the model is performed by making a prediction. Seventh, research about U-Net and the project’s relevance in a sustainability context with an Information System application is conducted throughout the project. Eighth, the structure of the thesis is developed once all significant insights from the implementation have been made. Ninth, the thesis is formulated and revised.
-
-(Figure 2 Project Schedule)
 
 ## Bibliography
 

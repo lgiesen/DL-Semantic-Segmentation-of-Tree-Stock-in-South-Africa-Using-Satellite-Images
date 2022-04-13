@@ -15,7 +15,7 @@ class Channel(Enum):
     BLUE = 2
 
 
-class TiffLoader:
+class TiffLoaderPred:
     def __init__(self, path):
         self._dataset = gdal.Open(path, gdal.GA_ReadOnly)
         self._bands = [self._dataset.GetRasterBand(
@@ -54,7 +54,7 @@ def scale_data(data):
 def main():
     # for filename in config.pred_imgs:
     filename = config.pred_imgs[0]
-    data_loader = TiffLoader(config.path_satellite + filename)
+    data_loader = TiffLoaderPred(config.path_satellite + filename)
     step_size = config.size
 
     x_size, y_size = data_loader.size
@@ -62,8 +62,8 @@ def main():
     x_offset = 0
     y_offset = 0
     satellite_patches = []
-    while y_offset + step_size <= y_size: #min(y_size, 7500):
-        while x_offset + step_size <= x_size: #min(x_size, 7500):
+    while y_offset + step_size <= y_size:  # min(y_size, 7500):
+        while x_offset + step_size <= x_size:  # min(x_size, 7500):
             data = data_loader.load_rgb(
                 x_offset, y_offset, step_size, step_size)
             # plt.imshow(data)
