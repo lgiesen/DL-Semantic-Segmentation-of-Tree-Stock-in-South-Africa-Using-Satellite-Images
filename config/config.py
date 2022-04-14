@@ -8,6 +8,7 @@ class Configuration:
         from sys import platform
 
         if platform in ["linux", "linux2"]:
+            # server paths
             self.base_dir = "/home/jovyan/work/"
             self.path_data = f"{self.base_dir}saved_data/south_africa_tree_stock/"
 
@@ -21,6 +22,7 @@ class Configuration:
             self.filepath_label_nw = self.path_labeled_data + "labels-22-02-23-nw.tif"
             self.filepath_label_se = self.path_labeled_data + "labels-22-02-23-se.tif"
         elif platform == "darwin":
+            # local paths
             self.base_dir = "/Users/leori/Desktop/BA/"
             self.path_data = f"{self.base_dir}1_Data/"
 
@@ -49,7 +51,8 @@ class Configuration:
         self.filepath_model = f"{self.model_path}20220404_1826_AdaDelta_weightmap_tversky_256.h5"
         self.pred_imgs = ["2629BD_2018.tif"]
 
-        self.filepath_label = f"{self.path_labeled_data}labels-22-02-23-compressed.tif"
+        # compressed export
+        self.filepath_label = f"{self.path_labeled_data}labels-22-02-23.tif"
         self.filepath_labels_bounding_boxes = self.path_labeled_data + \
             "label_polygons/labels-area-all/labels_bounding_box.shp"
 
